@@ -27,7 +27,7 @@ def BFS(el, current_graph):
     distances_array[el] = 0  # Расстояние до самой себя = 0
 
     while deque:
-        curr = deque.popleft()  # Убираем первый элемент (FIFO)
+        curr = deque.popleft()  # Убираем первый элемент
         for neigh in range(len(current_graph)):
             if current_graph[curr][neigh] == 1 and distances_array[neigh] == -1:
                 deque.append(neigh)  # Добавляем в очередь
