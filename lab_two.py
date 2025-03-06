@@ -22,19 +22,18 @@ def DFS(el, current_graph):
 
 def BFS(el, current_graph):
     """Обход в ширину. Подсчёт диаметра графа."""
-    deque.append(el)  # Добавляем стартовую вершину в очередь
-    count = 10
-    while deque and count > 0:
-        curr = deque.pop()  # Извлекаем вершину из очереди
-        visited.add(curr)  # Добавляем её в множество посещённых
+    deque.append(el)
+    distances_array = [-1] * len(current_graph)  # -1 означает, что вершина ещё не посещена
+    distances_array[el] = 0  # Расстояние до самой себя = 0
+
+    while deque:
+        curr = deque.popleft()  # Убираем первый элемент (FIFO)
         for neigh in range(len(current_graph)):
-            if current_graph[curr][neigh] == 0:
-                continue  # Пропускаем вершины без связи
-            if neigh not in visited:  # Если вершина ещё не посещена
-                deque.append(neigh)  # Добавляем её в очередь
-                distances_array[neigh] = distances_array[curr] + 1  # Увеличиваем расстояние
-        count -= 1
-    return max(distances_array)  # Возвращаем диаметр
+            if current_graph[curr][neigh] == 1 and distances_array[neigh] == -1:
+                deque.append(neigh)  # Добавляем в очередь
+                distances_array[neigh] = distances_array[curr] + 1  # Обновляем расстояние
+
+    return max(distances_array)  # Самое большое расстояние, диаметр
 
 def print_graph(current_graph):
     """Вывод графа в консоль."""
