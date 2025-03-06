@@ -54,18 +54,18 @@ def run(current_graph):
     distances_array = [0 for _ in range(len(current_graph))]  # Хранение расстояний от стартовой вершины
 
     print_graph(current_graph)  # Выводим граф в консоль
-    count_trees = 0  # Количество деревьев
+    count_components = 0  # Количество деревьев
 
     for i in range(len(current_graph)):
         if visit_array[i] == 0:  # Если вершина не посещена
             if DFS(i, current_graph):  # Запускаем обход в глубину, если находим цикл, увеличиваем счётчик
-                count_trees += 1
+                count_components += 1
             for j in range(len(current_graph)):
                 if visit_array[j] == 1:
                     visit_array[j] = 2  # Отмечаем вершины как обработанные
 
     print(f'Диаметр графа: {BFS(0, current_graph)}')  # Вычисляем диаметр графа через обход в ширину, выводим
-    print(f'Количество деревьев в графе: {count_trees}')  # Выводим число деревьев
+    print(f'Число компонент связности: {count_components}')  # Выводим число компонент связности
 
 if __name__ == '__main__':
     run(graph)
